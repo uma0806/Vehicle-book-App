@@ -1,43 +1,16 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-
-const Container = styled.div`
-  padding: 2rem;
-  text-align: center;
-`;
-
-const Heading = styled.h2`
-  margin-bottom: 1rem;
-`;
-
-const RadioGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 1rem;
-`;
-
-const RadioOption = styled.label`
-  cursor: pointer;
-  input {
-    margin-right: 0.5rem;
-  }
-`;
-
-const ErrorText = styled.p`
-  color: red;
-  margin-top: 1rem;
-`;
-
-const NextButton = styled.button`
-  margin-top: 2rem;
-  padding: 10px 20px;
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-`;
+import {
+  Container,
+  Typography,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  Button,
+  Paper,
+  Box,
+} from "@mui/material";
 
 const Step2Wheels = ({ onNext, formData, setFormData }) => {
   const [error, setError] = useState("");
@@ -51,37 +24,43 @@ const Step2Wheels = ({ onNext, formData, setFormData }) => {
     if (!formData.wheels) {
       setError("Please select number of wheels.");
     } else {
-      onNext(); // This triggers Step 3
+      onNext();
     }
   };
 
   return (
-    <Container>
-      <Heading>How many wheels does your vehicle have?</Heading>
-      <RadioGroup>
-        <RadioOption>
-          <input
-            type="radio"
+    <Container maxWidth="sm" sx={{ mt: 5 }}>
+      <Paper elevation={3} sx={{ p: 4 }}>
+        <Typography variant="h5" align="center" gutterBottom>
+          How many wheels does your vehicle have?
+        </Typography>
+
+        <FormControl component="fieldset">
+          <RadioGroup
+            row
+            aria-label="wheels"
             name="wheels"
-            value="2"
-            checked={formData.wheels === 2}
+            value={formData.wheels || ""}
             onChange={handleChange}
-          />
-          2 Wheels
-        </RadioOption>
-        <RadioOption>
-          <input
-            type="radio"
-            name="wheels"
-            value="4"
-            checked={formData.wheels === 4}
-            onChange={handleChange}
-          />
-          4 Wheels
-        </RadioOption>
-      </RadioGroup>
-      {error && <ErrorText>{error}</ErrorText>}
-      <NextButton onClick={handleNext}>Next</NextButton>
+            sx={{ justifyContent: "center", mt: 2 }}
+          >
+            <FormControlLabel value={2} control={<Radio />} label="2 Wheels" />
+            <FormControlLabel value={4} control={<Radio />} label="4 Wheels" />
+          </RadioGroup>
+        </FormControl>
+
+        {error && (
+          <Typography color="error" variant="body2" align="center" mt={2}>
+            {error}
+          </Typography>
+        )}
+
+        <Box textAlign="center" mt={4}>
+          <Button variant="contained" color="primary" onClick={handleNext}>
+            Next
+          </Button>
+        </Box>
+      </Paper>
     </Container>
   );
 };

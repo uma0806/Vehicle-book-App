@@ -1,42 +1,12 @@
 import React from "react";
-import styled from "styled-components";
-
-const Container = styled.div`
-  padding: 2rem;
-  max-width: 600px;
-  margin: auto;
-  text-align: center;
-`;
-
-const Heading = styled.h2`
-  margin-bottom: 2rem;
-`;
-
-const SummaryItem = styled.div`
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-  text-align: left;
-`;
-
-const Label = styled.span`
-  font-weight: bold;
-`;
-
-const ButtonGroup = styled.div`
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-`;
-
-const Button = styled.button`
-  padding: 10px 20px;
-  background-color: ${(props) => (props.secondary ? "#ccc" : "#1976d2")};
-  color: ${(props) => (props.secondary ? "#000" : "white")};
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-`;
+import {
+  Box,
+  Button,
+  Container,
+  Typography,
+  Paper,
+  Divider,
+} from "@mui/material";
 
 const Step6Summary = ({ formData, onBack, onSubmit }) => {
   // Helper to format dates
@@ -47,36 +17,59 @@ const Step6Summary = ({ formData, onBack, onSubmit }) => {
   };
 
   return (
-    <Container>
-      <Heading>Review Your Details</Heading>
-      <SummaryItem>
-        <Label>First Name:</Label> {formData.firstName}
-      </SummaryItem>
-      <SummaryItem>
-        <Label>Last Name:</Label> {formData.lastName}
-      </SummaryItem>
-      <SummaryItem>
-        <Label>Number of Wheels:</Label> {formData.wheels}
-      </SummaryItem>
-      <SummaryItem>
-        <Label>Vehicle Type ID:</Label> {formData.vehicleTypeId}
-      </SummaryItem>
-      <SummaryItem>
-        <Label>Vehicle Model ID:</Label> {formData.vehicleModelId}
-      </SummaryItem>
-      <SummaryItem>
-        <Label>Start Date:</Label> {formatDate(formData.startDate)}
-      </SummaryItem>
-      <SummaryItem>
-        <Label>End Date:</Label> {formatDate(formData.endDate)}
-      </SummaryItem>
+    <Container maxWidth="sm" sx={{ mt: 6 }}>
+      <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
+        <Typography variant="h5" align="center" gutterBottom>
+          Review Your Details
+        </Typography>
 
-      <ButtonGroup>
-        <Button secondary onClick={onBack}>
-          Back
-        </Button>
-        <Button onClick={onSubmit}>Submit</Button>
-      </ButtonGroup>
+        <Box mb={3}>
+          <Divider />
+        </Box>
+
+        <Box>
+          <Typography variant="h6" gutterBottom>
+            <strong>First Name:</strong> {formData.firstName}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            <strong>Last Name:</strong> {formData.lastName}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            <strong>Number of Wheels:</strong> {formData.wheels}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            <strong>Vehicle Type ID:</strong> {formData.vehicleTypeId}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            <strong>Vehicle Model ID:</strong> {formData.vehicleModelId}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            <strong>Start Date:</strong> {formatDate(formData.startDate)}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            <strong>End Date:</strong> {formatDate(formData.endDate)}
+          </Typography>
+        </Box>
+
+        <Box mt={4} display="flex" justifyContent="center" gap={2}>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={onBack}
+            sx={{ padding: "10px 20px", width: "120px" }}
+          >
+            Back
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onSubmit}
+            sx={{ padding: "10px 20px", width: "120px" }}
+          >
+            Submit
+          </Button>
+        </Box>
+      </Paper>
     </Container>
   );
 };
